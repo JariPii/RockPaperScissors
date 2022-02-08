@@ -6,11 +6,20 @@ public class Slumpis implements Datormotståndare {
 
     public int valAvDrag() {
 
-        int[] valAvMove = {1, 2, 3};
-        int val = valAvMove[new Random().nextInt(valAvMove.length)];
+        Random rand = new Random();
+//
+        int rand_try = rand.nextInt(3);
 
-        // ska implementera val av drag!
-        return 1;
+        /*if(rand_try == 0) {
+            System.out.println("Sten");
+        }
+        else if (rand_try == 1) {
+            System.out.println("Sax");
+        }
+        else {
+            System.out.println("Påse");
+        }*/
+        return rand_try;
     }
 
 }

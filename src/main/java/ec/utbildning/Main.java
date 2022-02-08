@@ -2,6 +2,7 @@ package ec.utbildning;
 
 import java.util.Random;
 import java.util.Scanner;
+import java.time.LocalTime;
 
 public class Main {
 
@@ -27,7 +28,7 @@ public class Main {
         switch (menyVal){
             case 1:
                 System.out.println("Du valde 1");
-                spelet.spelet();
+                spelet.spelet(name);
                 break;
             case 2:
                 System.out.println("Du valde 2");
@@ -39,10 +40,10 @@ public class Main {
         }
 
 
-        spelet.spelet();
 
-        String [] rps = {"s", "x", "p"};
-        String slumpis = rps[new Random().nextInt(rps.length)];
+
+//        String [] rps = {"s", "x", "p"};
+//        String slumpis = rps[new Random().nextInt(rps.length)];
 
 
 
