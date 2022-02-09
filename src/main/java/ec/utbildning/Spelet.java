@@ -42,20 +42,23 @@ public class Spelet{
                 default:
                     System.out.println("Vänligen ange en siffra för ditt val");
 
-                    //scanner.nextLine();
             }
-            switch (motDrag(namn.name)) {
-                case 0:
-                    namn.setDrag(0);
-                    System.out.println(namn.name + " Har valt Sten");
-                    break;
+            for(Player valAvDrag : motståndare){
+                valAvDrag.setDrag(motDrag(valAvDrag.name));
+            }
+
+            switch (motståndare.get(i).getDrag()) {
                 case 1:
-                    namn.setDrag(1);
-                    System.out.println(namn.name + " Har valt sax");
+                    motståndare.get(i).setDrag(1);
+                    System.out.println(motståndare.get(i).name + " Har valt Sten");
                     break;
                 case 2:
-                    namn.setDrag(2);
-                    System.out.println(namn.name + " Har valt påse");
+                    motståndare.get(i).setDrag(2);
+                    System.out.println(motståndare.get(i).name + " Har valt sax");
+                    break;
+                case 3:
+                    motståndare.get(i).setDrag(3);
+                    System.out.println(motståndare.get(i).name + " Har valt påse");
                     break;
             }
 
