@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Spelet{
     public void spelet(String name) {
 
-        int antalMatcher;
+        Result result = new Result();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -23,21 +23,20 @@ public class Spelet{
         );
 
 
-
-        for (Player namn : motståndare) {
-            System.out.println("Du möter " + namn.name);
+        for (int i = 0; i < motståndare.size(); i++) {
+            System.out.println("Du möter : " + motståndare.get(i).name);
             System.out.println("Välj ditt drag \n1: sten \n2: sax \n3: påse");
             int användarensDrag = scanner.nextInt();
-
+            motDrag(spelare.name);
             switch (användarensDrag) {
                 case 1:
-                    spelare.setDrag(0);
-                    break;
-                case 2:
                     spelare.setDrag(1);
                     break;
-                case 3:
+                case 2:
                     spelare.setDrag(2);
+                    break;
+                case 3:
+                    spelare.setDrag(3);
                     break;
                 default:
                     System.out.println("Vänligen ange en siffra för ditt val");
@@ -62,36 +61,25 @@ public class Spelet{
                     break;
             }
 
-            result(spelare.getDrag(), namn.getDrag());
+            result.beslutaVinnare(spelare, motståndare.get(i));
+            if(i == 0){
+                result.beslutaVinnare(motståndare.get(i + 1), motståndare.get(i + 2));
+            } else if ( i == 1) {
+                result.beslutaVinnare(motståndare.get(0), motståndare.get(i + 1));
+            }else {
+                result.beslutaVinnare(motståndare.get(0), motståndare.get(1));
+            }
+            result.antalMatcher++;
 
+        }
+
+        System.out.println("Matcher spelade: " + result.antalMatcher);
+        System.out.println("Du vann: " + spelare.vinster + " Matcher");
+        for(Player bot : motståndare){
+            System.out.println(bot.name + "Har " + bot.vinster + " Vinster \n");
         }
     }
 
-
-
-    public void result(int choiceOne, int choiceTwo){
-        int compare = choiceOne - choiceTwo;
-
-        switch(compare){
-            case -1:
-                System.out.println("Du vann \n");
-                break;
-            case 0:
-                System.out.println("Det blev lika \n");
-                break;
-            case 1:
-                System.out.println("Du förlorade \n");
-                break;
-        }
-
-        //System.out.println(compare);
-        //  -1 - 2;
-        //  -1 choicetvå vinner
-        //  0 oavgjort
-        //  1 choceett vinner
-        //
-
-    }
     public static int motDrag(String name){
 
         Tidis tidis = new Tidis();
@@ -104,18 +92,14 @@ public class Spelet{
         int slumpisDrag = slumpis.valAvDrag();
         int vokalisDrag = vokalis.valAvDrag();
 
-        System.out.println("Du möter " + name);
 
         switch(name){
             case "Slumpis" :
-                return slumpis.valAvDrag();
+                return slumpisDrag;
             case "Vokalis" :
-                return vokalis.valAvDrag();
-                //val av drag
+                return vokalisDrag;
             default:
-                return tidis.valAvDrag();
-                //val av drag
-
+                return tidisDrag;
 
         }
 
@@ -123,9 +107,37 @@ public class Spelet{
 
 }
 
+class Result{
+    int antalMatcher;
+
+    public void beslutaVinnare(Player a, Player b){
+
+        int playerADrag = a.getDrag();
+        int playerBDrag = b.getDrag();
+
+        System.out.println(a.name + " HAR VALT DRAGET " + a.getDrag() + "\n" + b.name + " HAR VALT DRAGET " + b.getDrag());
+
+        if(playerADrag  == playerBDrag ){
+            System.out.println("Det BLEV LIKA");
+            a.lika++;
+            b.lika++;
+        }else if ((playerADrag +1) % 3 == playerBDrag % 3){
+            System.out.println(a.name + " <-VANN" + " " + b.name + " <-FÖRLORADE");
+            a.vinster++;
+            b.förluster++;
+        }else {
+            System.out.println(a.name + " <-FÖRLORADE " + b.name + " <-VANN");
+            a.förluster++;
+            b.vinster++;
+        }
+
+    }
+}
+
 class Player{
     String name;
     int vinster;
+    int lika;
     int förluster;
     int drag;
 
@@ -153,19 +165,3 @@ class Player{
 
 
 
-
-
-
-
-//        while (true) {
-//            System.out.println("Välkommer! Vilket väljer du att spela, (S)ten Sa(x) eller (P)åse");
-//            spelarVal = scanner.nextLine();
-//            if (spelarVal.equals("s") || spelarVal.equals("x") || spelarVal.equals("p")) {
-//                break;
-//            }
-//
-//            System.out.println(spelarVal + " gör ett nytt val! s, x eller p");
-//
-//        }
-//
-//        System.out.println("Datorn väljer: " + 1);

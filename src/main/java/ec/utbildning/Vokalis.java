@@ -5,7 +5,7 @@ public class Vokalis implements Datormotståndare {
 
     String spelarNamn;
 
-
+    @Override
     public int valAvDrag() {
         String s = spelarNamn;
 
