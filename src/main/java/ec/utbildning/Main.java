@@ -12,7 +12,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Det mesta avancerade oanvändbara sten sax påse spelet!");
+        System.out.println("\033[0;1m" + "\u001B[31m" + "Det mest avancerade oanvändbara sten sax påse spelet!" + "\u001B[0m" + "\033[0;0m");
         System.out.println("Välkommen!");
         System.out.println("Vad heter du?");
         String name = scanner.nextLine();
@@ -20,6 +20,7 @@ public class Main {
 
         Spelet spelet = new Spelet();
 
+        Statistik statistik = new Statistik();
         //while loop
         while(runProgram){
         System.out.println("\nMenyval!\n 1: spela\n 2: statistik\n 3: avsluta");
@@ -32,6 +33,8 @@ public class Main {
                 break;
             case 2:
                 System.out.println("Du valde 2");
+                //Kalla på metod för att visa statistik
+                statistik.visaStatistik();
                 break;
             default:
                 System.out.println("Du har valt att avsluta!");

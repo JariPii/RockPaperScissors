@@ -73,6 +73,17 @@ public class Spelet{
 
         }
 
+        Statistik statistik = new Statistik();
+        List<Player> allaSpelare = new ArrayList<>();
+
+        for(Player bot : motståndare){
+                  allaSpelare.add(bot);
+        };
+
+        allaSpelare.add(spelare);
+        statistik.setSpelare(allaSpelare);
+
+
         System.out.println("Matcher spelade: " + result.antalMatcher);
         System.out.println("Du vann: " + spelare.vinster + " Matcher");
         for(Player bot : motståndare){
